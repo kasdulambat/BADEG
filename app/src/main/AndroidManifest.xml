@@ -4,6 +4,7 @@
 
     <!-- Izin wajib agar WebView dapat berkomunikasi dengan server Mongoose lokal -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
@@ -18,13 +19,18 @@
             android:name=".MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"> <!-- Menjaga orientasi layar agar UI dashboard tetap rapi -->
-            
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.action.LAUNCHER" />
             </intent-filter>
-            
+
         </activity>
+
+        <service
+            android:name=".MongooseService"
+            android:enabled="true"
+            android:exported="false" />
     </application>
 
 </manifest>
