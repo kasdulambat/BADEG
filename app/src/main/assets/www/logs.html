@@ -2,14 +2,53 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>B.A.D.E.G Logs</title>
     <style>
-        body { background: #121212; color: #00FF00; font-family: monospace; padding: 20px; }
+        body { background: #121212; color: #00FF00; font-family: 'Courier New', monospace; padding: 20px; line-height: 1.4; }
+        h2 { color: #00ADB5; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        #logContainer { height: 70vh; overflow-y: auto; border: 1px solid #333; padding: 10px; background: #000; border-radius: 8px; }
+        .log-entry { margin-bottom: 4px; font-size: 14px; border-left: 3px solid #00ADB5; padding-left: 8px; }
+        .controls { margin-top: 15px; display: flex; gap: 10px; }
+        button { background: #00ADB5; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; }
+        button:active { opacity: 0.8; }
     </style>
 </head>
 <body>
     <h2>System Logs</h2>
-    <p>[INFO] B.A.D.E.G Core initialized.</p>
-    <p>[INFO] Mongoose Server running on port 8080.</p>
+    <div id="logContainer">
+        <div class="log-entry">[WAIT] Fetching logs...</div>
+    </div>
+    <div class="controls">
+        <button onclick="fetchLogs()">Refresh</button>
+        <button onclick="Android.showToast('Log refresh requested')">Notify Native</button>
+    </div>
+
+    <script>
+        async function fetchLogs() {
+            try {
+                const response = await fetch('/api/logs');
+                const logs = await response.json();
+                const container = document.getElementById('logContainer');
+                container.innerHTML = '';
+                logs.reverse().forEach(log => {
+                    const entry = document.createElement('div');
+                    entry.className = 'log-entry';
+                    entry.textContent = log;
+                    container.appendChild(entry);
+                });
+                if(logs.length === 0) {
+                    container.innerHTML = '<div class="log-entry">No logs available</div>';
+                }
+            } catch (error) {
+                console.error('Failed to fetch logs:', error);
+                document.getElementById('logContainer').innerHTML = '<div class="log-entry" style="color: red;">[ERROR] Failed to fetch logs from server</div>';
+            }
+        }
+
+        // Auto fetch every 5 seconds
+        setInterval(fetchLogs, 5000);
+        fetchLogs();
+    </script>
 </body>
 </html>
