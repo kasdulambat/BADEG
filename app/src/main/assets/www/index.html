@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B.A.D.E.G Dashboard</title>
+    <style>
+        body { background: #121212; color: white; font-family: sans-serif; padding: 20px; }
+        .card { background: #1E1E1E; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+        h2 { color: #00ADB5; margin-top: 0; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: center; }
+        .circle { width: 80px; height: 80px; border: 5px solid #333; border-top-color: #00ADB5; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; }
+    </style>
+</head>
+<body>
+    <h1>B.A.D.E.G System</h1>
+    <div class="card">
+        <h2>Device Info</h2>
+        <p>Status: <strong>Connected</strong></p>
+    </div>
+    <div class="card">
+        <h2>Resource Usage</h2>
+        <div class="grid">
+            <div><div class="circle">CPU</div></div>
+            <div><div class="circle">RAM</div></div>
+        </div>
+    </div>
+</body>
+</html>
